@@ -1,5 +1,5 @@
-{ "name": "N1", "age": 10 , "cnt":100}
-{ "name": "N2", "age": 20 , "cnt":200}
-{ "name": "N3", "age": 30 , "cnt":300}
-{ "name": "N4", "age": 40 , "cnt":400}
+{ "name": "N1", "cnt1": 10 , "cnt2":100, "sum":0}
+{ "name": "N2", "cnt1": 30 , "cnt2":100, "sum":0}
+{ "name": "N3", "cnt1": 20 , "cnt2":100, "sum":0}
+{ "name": "N4", "cnt1": 40 , "cnt2":100, "sum":0}
 
