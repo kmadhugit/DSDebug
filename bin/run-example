@@ -1,19 +1,7 @@
-if [ -n "$1" ]; then
-  EXAMPLE_CLASS="$1"
-  shift
-else
-  echo "Usage: ./bin/run-example <example-class> [example-args]" 1>&2
-  echo "  - set MASTER=XX to use a specific master" 1>&2
-  echo "  - can use abbreviated example class name relative to com.apache.spark.examples" 1>&2
-  echo "     (e.g. SparkPi, mllib.LinearRegression, streaming.KinesisWordCountASL)" 1>&2
-  exit 1
-fi
-
-if [[ ! $EXAMPLE_CLASS == com.ibn.* ]]; then
-  EXAMPLE_CLASS="com.ibn.$EXAMPLE_CLASS"
-fi
-
-echo "Executing : mvn -q scala:run -DmainClass=$EXAMPLE_CLASS" 
-
-/home/kmadhu/spark/build/mvn -q scala:run -DmainClass=$EXAMPLE_CLASS -DaddArgs="Nothing"
+FILE=$1
+echo $FILE
+cd /home/kmadhu/DSDebug/src/main/java
+export LD_LIBRARY_PATH=/home/kmadhu/DSDebug/src/main/resources
+javac -cp /home/kmadhu/DSDebug/src/main/resources/jcuda-0.7.0a.jar com/ibn/$FILE.java
+java -cp ".:/home/kmadhu/DSDebug/src/main/resources/jcuda-0.7.0a.jar" com.ibn.$FILE
 
