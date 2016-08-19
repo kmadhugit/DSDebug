@@ -5,7 +5,21 @@
   <version>1.0-SNAPSHOT</version>
   <inceptionYear>2016</inceptionYear>
   <properties>
-    <scala.version>2.11.8</scala.version>
+
+      <!--
+          <scala.subversion>2.10.4</scala.subversion>
+          <scala.version>2.10</scala.version>
+          <spark.version>1.5.1</spark.version>
+      -->
+  <!--
+    <scala.subversion>2.11.8</scala.subversion>
+    <scala.version>2.11</scala.version>
+    <spark.version>2.1.0-SNAPSHOT</spark.version>
+       -->
+    <scala.subversion>2.10.5</scala.subversion>
+    <scala.version>2.10</scala.version>
+    <spark.version>1.6.1</spark.version>
+
   </properties>
 
   <repositories>
@@ -28,22 +42,27 @@
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
-      <version>${scala.version}</version>
+      <version>${scala.subversion}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-core_2.11</artifactId>
-      <version>2.1.0-SNAPSHOT</version>
+      <artifactId>spark-core_${scala.version}</artifactId>
+      <version>${spark.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_2.11</artifactId>
-      <version>2.1.0-SNAPSHOT</version>
+      <artifactId>spark-sql_${scala.version}</artifactId>
+      <version>${spark.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
-      <artifactId>spark-catalyst_2.11</artifactId>
-      <version>2.1.0-SNAPSHOT</version>
+      <artifactId>spark-catalyst_${scala.version}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mystic</groupId>
+      <artifactId>mavenized-jcuda</artifactId>
+      <version>0.1.2</version>
     </dependency>
   </dependencies>
 
@@ -63,12 +82,7 @@
           </execution>
         </executions>
         <configuration>
-          <scalaVersion>${scala.version}</scalaVersion>
-	  <javacArgs>
-        	<javacArg>-Xlint:unchecked</javacArg>
-        	<javacArg>-Xlint:deprecation</javacArg>
-        	<javacArg>-Xlint:feature</javacArg>
-          </javacArgs>
+          <scalaVersion>${scala.subversion}</scalaVersion>
           <args>
             <arg>-target:jvm-1.7</arg>
             <arg>-deprecation</arg>
@@ -102,7 +116,7 @@
         <groupId>org.scala-tools</groupId>
         <artifactId>maven-scala-plugin</artifactId>
         <configuration>
-          <scalaVersion>${scala.version}</scalaVersion>
+          <scalaVersion>${scala.subversion}</scalaVersion>
         </configuration>
       </plugin>
     </plugins>
