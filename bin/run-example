@@ -1,0 +1,19 @@
+if [ -n "$1" ]; then
+  EXAMPLE_CLASS="$1"
+  shift
+else
+  echo "Usage: ./bin/run-example <example-class> [example-args]" 1>&2
+  echo "  - set MASTER=XX to use a specific master" 1>&2
+  echo "  - can use abbreviated example class name relative to com.apache.spark.examples" 1>&2
+  echo "     (e.g. SparkPi, mllib.LinearRegression, streaming.KinesisWordCountASL)" 1>&2
+  exit 1
+fi
+
+if [[ ! $EXAMPLE_CLASS == com.ibn.* ]]; then
+  EXAMPLE_CLASS="com.ibn.$EXAMPLE_CLASS"
+fi
+
+echo "Executing : mvn -q scala:run -DmainClass=$EXAMPLE_CLASS" 
+
+/home/kmadhu/spark/build/mvn -q scala:run -DmainClass=$EXAMPLE_CLASS -DaddArgs="Nothing"
+
