@@ -1,13 +1,15 @@
 package com.ibn;
 
-import static jcuda.driver.JCudaDriver.*;
-import jcuda.*;
+import jcuda.Pointer;
+import jcuda.Sizeof;
 import jcuda.driver.*;
+
+import static jcuda.driver.JCudaDriver.*;
 
 /**
  * Created by madhusudanan on 19/08/16.
  */
-public class JCUDAExample {
+public class JCUDAExample2 {
 
 
     public static void main(String args[]) {
@@ -40,10 +42,17 @@ public class JCUDAExample {
 
         // Allocate the device hostinput data, and copy the
         // host hostinput data to the device
+        Pointer ptr = new Pointer();
+        cuMemAllocHost(ptr,80);
+        for(int i = 0; i < numElements; i++)
+            ptr.getByteBuffer(0,80).putLong(i*8,i);
+
+        // COpy hostinput to Device
         CUdeviceptr deviceinput = new CUdeviceptr();
         cuMemAlloc(deviceinput, numElements * Sizeof.LONG);
-        cuMemcpyHtoD(deviceinput, Pointer.to(hostInput),
+        cuMemcpyHtoD(deviceinput, Pointer.to(ptr),
                 numElements * Sizeof.LONG);
+
 
         // Allocate device output memory
         CUdeviceptr deviceoutput = new CUdeviceptr();
@@ -76,6 +85,7 @@ public class JCUDAExample {
         // Clean up.
         cuMemFree(deviceinput);
         cuMemFree(deviceoutput);
+        cuMemFreeHost(ptr);
 
         for(int i = 0; i < numElements; i++)
             System.out.println("Input = " + hostInput[i] + "output =" + hostOutput[i]);
